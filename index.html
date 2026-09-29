@@ -5,854 +5,690 @@
 
 <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>幼兒3C使用鑑定事務所</title>
-
+<title>幼兒3C鑑定事務所</title>
 
 <style>
 
-/* =====================================================
-   基本設定
-===================================================== */
+/* ===== 基本設定 ===== */
 
-* {
-    box-sizing: border-box;
-}
-
-html,
 body {
     margin: 0;
-    padding: 0;
-    width: 100%;
-    min-height: 100%;
+    font-family: Arial, "Microsoft JhengHei", sans-serif;
+    background: #f5e6b8;
+    color: #333;
 }
 
-body {
-
-    font-family:
-        "Arial",
-        "Noto Sans TC",
-        "Microsoft JhengHei",
-        sans-serif;
-
-    color: #493525;
-
-    background: #f5dc9a;
-
+.page {
+    display: none;
+    min-height: 100vh;
+    padding: 30px;
+    box-sizing: border-box;
+    text-align: center;
 }
+
+.page.active {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* ===== 歡迎畫面 ===== */
+
+#welcome {
+    background: #8ed4ed;
+}
+
+h1 {
+    font-size: 45px;
+    color: #e85d4a;
+}
+
+.welcome-text {
+    font-size: 28px;
+    margin: 30px;
+}
+
+
+/* ===== 按鈕 ===== */
 
 button {
-
-    font-family: inherit;
-
-    cursor: pointer;
-
-}
-
-
-/* =====================================================
-   共用畫面
-===================================================== */
-
-.screen {
-
-    min-height: 100vh;
-
-    display: none;
-
-    padding: 25px;
-
-}
-
-.screen.active {
-
-    display: flex;
-
-}
-
-
-/* =====================================================
-   起始畫面
-===================================================== */
-
-#homeScreen {
-
-    position: relative;
-
-    overflow: hidden;
-
-    flex-direction: column;
-
-    justify-content: center;
-
-    align-items: center;
-
-    background:
-
-        linear-gradient(
-            to bottom,
-            #72c8e8 0%,
-            #bdeaf5 63%,
-            #78b75b 63%,
-            #78b75b 100%
-        );
-
-}
-
-
-/* 太陽 */
-
-#homeScreen::before {
-
-    content: "☀️";
-
-    position: absolute;
-
-    top: 25px;
-
-    right: 7%;
-
-    font-size: 75px;
-
-}
-
-
-/* 雲 */
-
-#homeScreen::after {
-
-    content: "☁️        ☁️";
-
-    position: absolute;
-
-    top: 55px;
-
-    left: 6%;
-
-    font-size: 50px;
-
-    letter-spacing: 30px;
-
-}
-
-
-/* =====================================================
-   事務所外框
-===================================================== */
-
-.office {
-
-    position: relative;
-
-    z-index: 5;
-
-    width: min(920px, 95vw);
-
-    padding: 25px 30px 35px;
-
-    text-align: center;
-
-    background: #fff1bb;
-
-    border: 8px solid #70452e;
-
-    border-radius: 30px;
-
-    box-shadow:
-
-        0 18px 0 #513323,
-
-        0 28px 35px rgba(0,0,0,0.25);
-
-}
-
-
-/* =====================================================
-   標題
-===================================================== */
-
-.title {
-
-    margin: 0 0 5px;
-
-    font-size: clamp(30px, 5vw, 58px);
-
-    color: #e45c4c;
-
-    text-shadow:
-
-        3px 3px 0 white,
-
-        6px 6px 0 #75482f;
-
-}
-
-.subtitle {
-
-    font-size: clamp(15px, 2.5vw, 24px);
-
-    font-weight: bold;
-
-    color: #65452f;
-
-}
-
-
-/* =====================================================
-   建築物
-===================================================== */
-
-.building {
-
-    position: relative;
-
-    width: 82%;
-
-    height: 320px;
-
-    margin: 35px auto 15px;
-
-    background: #f5d477;
-
-    border: 8px solid #70452e;
-
-    border-radius: 18px 18px 5px 5px;
-
-    box-shadow:
-
-        inset 0 -25px rgba(120,75,40,0.12);
-
-}
-
-
-/* 屋頂 */
-
-.building::before {
-
-    content: "";
-
-    position: absolute;
-
-    left: 50%;
-
-    top: -30px;
-
-    transform: translateX(-50%);
-
-    width: 108%;
-
-    height: 45px;
-
-    background: #e35d4d;
-
-    border: 7px solid #70452e;
-
-    border-radius: 20px 20px 5px 5px;
-
-}
-
-
-/* =====================================================
-   招牌
-===================================================== */
-
-.office-sign {
-
-    position: absolute;
-
-    z-index: 4;
-
-    left: 50%;
-
-    top: 22px;
-
-    transform: translateX(-50%);
-
-    width: 60%;
-
-    padding: 10px;
-
-    background: #fff8d7;
-
-    border: 6px solid #70452e;
-
-    border-radius: 15px;
-
-    font-size: clamp(15px, 2vw, 23px);
-
-    font-weight: bold;
-
-    color: #d85448;
-
-}
-
-
-/* =====================================================
-   窗戶
-===================================================== */
-
-.window {
-
-    position: absolute;
-
-    top: 100px;
-
-    width: 95px;
-
-    height: 80px;
-
-    background: #75cce7;
-
-    border: 7px solid #70452e;
-
-    border-radius: 10px;
-
-}
-
-.window.left {
-
-    left: 7%;
-
-}
-
-.window.right {
-
-    right: 7%;
-
-}
-
-
-/* 窗戶十字 */
-
-.window::before {
-
-    content: "";
-
-    position: absolute;
-
-    left: 50%;
-
-    top: 0;
-
-    width: 6px;
-
-    height: 100%;
-
-    background: #70452e;
-
-    transform: translateX(-50%);
-
-}
-
-.window::after {
-
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-
-    top: 50%;
-
-    width: 100%;
-
-    height: 6px;
-
-    background: #70452e;
-
-    transform: translateY(-50%);
-
-}
-
-
-/* =====================================================
-   大門
-===================================================== */
-
-.door {
-
-    position: absolute;
-
-    z-index: 5;
-
-    left: 50%;
-
-    bottom: 0;
-
-    transform: translateX(-50%);
-
-    width: 155px;
-
-    height: 215px;
-
-    background: #75472f;
-
-    border: 8px solid #4c3022;
-
-    border-bottom: none;
-
-    border-radius: 75px 75px 0 0;
-
-}
-
-
-/* 門上的玻璃 */
-
-.door-window {
-
-    position: absolute;
-
-    top: 18px;
-
-    left: 25px;
-
-    width: 89px;
-
-    height: 70px;
-
-    background: #72cbe8;
-
-    border: 5px solid #4c3022;
-
-    border-radius: 12px;
-
-}
-
-
-/* 門把 */
-
-.door-handle {
-
-    position: absolute;
-
-    right: 16px;
-
-    top: 115px;
-
-    width: 14px;
-
-    height: 14px;
-
-    background: #f4c542;
-
-    border: 3px solid #4c3022;
-
-    border-radius: 50%;
-
-}
-
-
-/* =====================================================
-   機器人
-===================================================== */
-
-.robot {
-
-    position: absolute;
-
-    z-index: 10;
-
-    width: 120px;
-
-    height: 180px;
-
-    left: 50%;
-
-    bottom: -5px;
-
-    transform: translateX(-50%);
-
-    animation:
-
-        robotWalkOut 2.4s ease-out forwards,
-
-        robotIdle 1.5s 2.4s ease-in-out infinite alternate;
-
-}
-
-
-/* 機器人身體 */
-
-.robot-body {
-
-    position: absolute;
-
-    left: 20px;
-
-    bottom: 25px;
-
-    width: 80px;
-
-    height: 90px;
-
-    background: #e5a52c;
-
-    border: 6px solid #4f4a42;
-
-    border-radius: 24px 24px 15px 15px;
-
-    box-shadow:
-
-        inset 0 -10px rgba(0,0,0,0.12);
-
-}
-
-
-/* 機器人螢幕 */
-
-.robot-screen {
-
-    position: absolute;
-
-    left: 9px;
-
-    top: 12px;
-
-    width: 62px;
-
-    height: 44px;
-
-    background: #263238;
-
-    border: 4px solid #555;
-
-    border-radius: 9px;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    gap: 8px;
-
-}
-
-
-/* 眼睛 */
-
-.eye {
-
-    width: 11px;
-
-    height: 18px;
-
-    background: #7de8ff;
-
-    border-radius: 50%;
-
-    animation: blink 3s infinite;
-
-}
-
-
-/* 輪子 */
-
-.robot-wheel {
-
-    position: absolute;
-
-    bottom: 0;
-
-    width: 42px;
-
-    height: 42px;
-
-    background: #333;
-
-    border: 6px solid #151515;
-
-    border-radius: 50%;
-
-}
-
-.robot-wheel.left {
-
-    left: 0;
-
-}
-
-.robot-wheel.right {
-
-    right: 0;
-
-}
-
-
-/* 手臂 */
-
-.robot-arm {
-
-    position: absolute;
-
-    top: 72px;
-
-    width: 38px;
-
-    height: 12px;
-
-    background: #777;
-
-    border-radius: 10px;
-
-}
-
-.robot-arm.left {
-
-    left: -20px;
-
-    transform: rotate(25deg);
-
-}
-
-.robot-arm.right {
-
-    right: -20px;
-
-    transform: rotate(-25deg);
-
-}
-
-
-/* =====================================================
-   對話框
-===================================================== */
-
-.speech {
-
-    position: relative;
-
-    z-index: 20;
-
-    max-width: 720px;
-
-    margin: 20px auto;
-
-    padding: 18px 25px;
-
-    background: white;
-
-    border: 5px solid #493525;
-
-    border-radius: 25px;
-
-    font-size: clamp(17px, 2.5vw, 24px);
-
-    font-weight: bold;
-
-    box-shadow:
-
-        5px 6px 0 rgba(0,0,0,0.2);
-
-    animation:
-
-        speechAppear 0.8s 2.1s both;
-
-}
-
-
-/* =====================================================
-   開始按鈕
-===================================================== */
-
-.start-btn {
-
-    position: relative;
-
-    z-index: 30;
-
     border: none;
+    border-radius: 15px;
+    padding: 18px 35px;
+    margin: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
 
-    padding: 17px 45px;
-
-    background: #ed6857;
-
+.start-button {
+    background: #e85d4a;
     color: white;
-
-    font-size: clamp(20px, 3vw, 27px);
-
-    font-weight: bold;
-
-    border-radius: 50px;
-
-    box-shadow: 0 7px 0 #a83d32;
-
-    transition: transform 0.15s, box-shadow 0.15s;
-
 }
 
-.start-btn:hover {
-
-    transform: translateY(3px);
-
-    box-shadow: 0 4px 0 #a83d32;
-
-}
-
-.start-btn:active {
-
-    transform: translateY(6px);
-
-    box-shadow: 0 1px 0 #a83d32;
-
+.start-button:hover {
+    background: #d94b3b;
 }
 
 
-/* =====================================================
-   案件畫面
-===================================================== */
+/* ===== 個案畫面 ===== */
 
-#caseScreen {
-
-    flex-direction: column;
-
-    align-items: center;
-
-    background:
-
-        linear-gradient(
-            #9bd7f0 0 18%,
-            #d9c091 18% 100%
-        );
-
+#casePage {
+    background: #f5e6b8;
 }
 
-
-/* 上方 */
-
-.office-top {
-
-    width: 100%;
-
-    max-width: 1100px;
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    margin-bottom: 20px;
-
-}
-
-.office-name {
-
-    font-size: clamp(20px, 3vw, 34px);
-
-    font-weight: bold;
-
-}
-
-
-/* =====================================================
-   倒數計時器
-===================================================== */
-
-.timer {
-
-    width: 95px;
-
-    height: 95px;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
+.case-box {
+    width: min(900px, 90%);
     background: white;
-
-    border: 6px solid #493525;
-
-    border-radius: 50%;
-
-    font-size: 32px;
-
-    font-weight: bold;
-
-}
-
-
-/* =====================================================
-   個案卡片
-===================================================== */
-
-.case-card {
-
-    width: min(1000px, 95vw);
-
-    padding: clamp(20px, 4vw, 45px);
-
-    background: #fff9df;
-
-    border: 8px solid #815536;
-
-    border-radius: 30px;
-
-    box-shadow: 0 12px 0 #573a29;
-
+    padding: 35px;
+    border-radius: 25px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
 .case-number {
-
     font-size: 22px;
-
-    color: #c76b45;
-
-    font-weight: bold;
-
-}
-
-.case-title {
-
-    font-size: clamp(25px, 4vw, 42px);
-
-    margin: 10px 0 25px;
-
+    color: #888;
 }
 
 .case-info {
-
-    padding: 25px;
-
-    background: white;
-
-    border-radius: 20px;
-
-    border: 3px dashed #d49a50;
-
-    font-size: clamp(20px, 3vw, 30px);
-
+    font-size: 28px;
     line-height: 1.7;
-
+    margin: 30px 0;
 }
 
 
-/* =====================================================
-   選項
-===================================================== */
+/* ===== 倒數 ===== */
 
-.vote-question {
-
-    margin: 30px 0 15px;
-
-    text-align: center;
-
-    font-size: 25px;
-
+.timer {
+    font-size: 40px;
     font-weight: bold;
+    color: #e85d4a;
+    margin: 20px;
+}
+
+
+/* ===== 答案按鈕 ===== */
+
+.answers {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.answer {
+    width: 200px;
+    color: white;
+}
+
+.red {
+    background: #e95757;
+}
+
+.yellow {
+    background: #e8c84b;
+    color: #333;
+}
+
+.green {
+    background: #59b96b;
+}
+
+
+/* ===== 統計圖 ===== */
+
+#resultPage {
+    background: #f5e6b8;
+}
+
+.result-box {
+    width: min(800px, 90%);
+    background: white;
+    padding: 30px;
+    border-radius: 25px;
+}
+
+.result-row {
+    margin: 25px 0;
+    text-align: left;
+}
+
+.result-label {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.bar-background {
+    width: 100%;
+    height: 40px;
+    background: #ddd;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.bar {
+    height: 100%;
+    width: 0%;
+    transition: width 0.5s;
+}
+
+.red-bar {
+    background: #e95757;
+}
+
+.yellow-bar {
+    background: #e8c84b;
+}
+
+.green-bar {
+    background: #59b96b;
+}
+
+
+/* ===== 手機版 ===== */
+
+@media (max-width: 600px) {
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .welcome-text {
+        font-size: 22px;
+    }
+
+    .case-info {
+        font-size: 21px;
+    }
+
+    .timer {
+        font-size: 32px;
+    }
+
+    .answer {
+        width: 90%;
+    }
 
 }
 
-.options {
+</style>
 
-    display: grid;
+</head>
 
-    grid-template-columns: repeat(3, 1fr);
 
-    gap: 18px;
+<body>
+
+
+<!-- ==================================================
+     歡迎畫面
+================================================== -->
+
+<div id="welcome" class="page active">
+
+    <h1>
+        歡迎來到幼兒3C鑑定事務所
+    </h1>
+
+    <div class="welcome-text">
+        👋 歡迎入職本事務所！
+        <br><br>
+        準備好開始今天的鑑定工作了嗎？
+    </div>
+
+    <button
+        id="startButton"
+        class="start-button"
+    >
+        🔨 開始上工
+    </button>
+
+</div>
+
+
+
+<!-- ==================================================
+     個案畫面
+================================================== -->
+
+<div id="casePage" class="page">
+
+    <div class="case-box">
+
+        <div
+            id="caseNumber"
+            class="case-number"
+        >
+            個案一
+        </div>
+
+
+        <h2>
+            📋 個案資訊
+        </h2>
+
+
+        <div
+            id="caseInfo"
+            class="case-info"
+        >
+        </div>
+
+
+        <div
+            id="timer"
+            class="timer"
+        >
+            30
+        </div>
+
+
+        <div>
+            請選擇你認為最適合的答案：
+        </div>
+
+
+        <div class="answers">
+
+            <button
+                id="tooMuchButton"
+                class="answer red"
+            >
+                🔴 太多了
+            </button>
+
+
+            <button
+                id="okayButton"
+                class="answer yellow"
+            >
+                🟡 還可以
+            </button>
+
+
+            <button
+                id="goodButton"
+                class="answer green"
+            >
+                🟢 完全喔虧
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ==================================================
+     統計結果
+================================================== -->
+
+<div id="resultPage" class="page">
+
+    <div class="result-box">
+
+        <h1>
+            📊 本題回答統計
+        </h1>
+
+
+        <div class="result-row">
+
+            <div class="result-label">
+                🔴 太多了：
+                <span id="redCount">0</span> 人
+            </div>
+
+            <div class="bar-background">
+
+                <div
+                    id="redBar"
+                    class="bar red-bar"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="result-row">
+
+            <div class="result-label">
+                🟡 還可以：
+                <span id="yellowCount">0</span> 人
+            </div>
+
+            <div class="bar-background">
+
+                <div
+                    id="yellowBar"
+                    class="bar yellow-bar"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="result-row">
+
+            <div class="result-label">
+                🟢 完全喔虧：
+                <span id="greenCount">0</span> 人
+            </div>
+
+            <div class="bar-background">
+
+                <div
+                    id="greenBar"
+                    class="bar green-bar"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+        <button
+            id="nextButton"
+            class="start-button"
+        >
+            ➡️ 下一單
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+/* ==================================================
+   個案資料
+================================================== */
+
+const cases = [
+
+    {
+        time: 30,
+
+        info: `
+        👶🏻 <strong>林家豪，5歲</strong>
+        <br><br>
+        晚餐後獎勵使用平板 1 小時
+        <br>
+        看 YouTube 廢廢短片
+        <br>
+        無大人陪同
+        `
+    },
+
+
+    {
+        time: 40,
+
+        info: `
+        👶🏻 <strong>張美惠，3歲</strong>
+        <br><br>
+        每日使用 4 小時
+        <br>
+        1 小時看寶寶巴士（電視）
+        <br>
+        1.5 小時和父母一起看動畫電影（電視）
+        <br>
+        1.5 小時父母陪同使用英語學習 App（平板）
+        `
+    },
+
+
+    {
+        time: 30,
+
+        info: `
+        👶🏻 <strong>Jason Black，2歲</strong>
+        <br><br>
+        每日使用 5 小時
+        <br>
+        看哆啦A夢（電視）
+        <br>
+        無大人陪同
+        `
+    }
+
+];
+
+
+/* ==================================================
+   遊戲變數
+================================================== */
+
+let currentCase = 0;
+
+let timer;
+
+let timeLeft;
+
+
+/* ==================================================
+   每一題的票數
+================================================== */
+
+let redVotes = 0;
+
+let yellowVotes = 0;
+
+let greenVotes = 0;
+
+
+/* ==================================================
+   取得畫面
+================================================== */
+
+const welcome =
+    document.getElementById("welcome");
+
+const casePage =
+    document.getElementById("casePage");
+
+const resultPage =
+    document.getElementById("resultPage");
+
+
+/* ==================================================
+   開始上工
+================================================== */
+
+document
+    .getElementById("startButton")
+    .addEventListener(
+        "click",
+        startGame
+    );
+
+
+function startGame() {
+
+    welcome.classList.remove("active");
+
+    casePage.classList.add("active");
+
+    showCase();
+
+}
+
+
+/* ==================================================
+   顯示個案
+================================================== */
+
+function showCase() {
+
+    clearInterval(timer);
+
+
+    const current =
+        cases[currentCase];
+
+
+    document.getElementById(
+        "caseNumber"
+    ).textContent =
+        "個案 " + (currentCase + 1);
+
+
+    document.getElementById(
+        "caseInfo"
+    ).innerHTML =
+        current.info;
+
+
+    timeLeft =
+        current.time;
+
+
+    document.getElementById(
+        "timer"
+    ).textContent =
+        timeLeft;
+
+
+    /* 每一題重新計算票數 */
+
+    redVotes = 0;
+
+    yellowVotes = 0;
+
+    greenVotes = 0;
+
+
+    /* 開始倒數 */
+
+    timer = setInterval(
+
+        function() {
+
+            timeLeft--;
+
+            document.getElementById(
+                "timer"
+            ).textContent =
+                timeLeft;
+
+
+            if (timeLeft <= 0) {
+
+                clearInterval(timer);
+
+                showResult();
+
+            }
+
+        },
+
+        1000
+
+    );
+
+}
+
+
+/* ==================================================
+   投票
+================================================== */
+
+document
+    .getElementById("tooMuchButton")
+    .addEventListener(
+        "click",
+        function() {
+
+            redVotes++;
+
+            disableButtons();
+
+            showResult();
+
+        }
+    );
+
+
+document
+    .getElementById("okayButton")
+    .addEventListener(
+        "click",
+        function() {
+
+            yellowVotes++;
+
+            disableButtons();
+
+            showResult();
+
+        }
+    );
+
+
+document
+    .getElementById("goodButton")
+    .addEventListener(
+        "click",
+        function() {
+
+            greenVotes++;
+
+            disableButtons();
+
+            showResult();
+
+        }
+    );
+
+
+/* ==================================================
+   禁止重複投票
+================================================== */
+
+function disableButtons() {
+
+    document.getElementById(
+        "tooMuchButton"
+    ).disabled = true;
+
+    document.getElementById(
+        "okayButton"
+    ).disabled = true;
+
+    document.getElementById(
+        "goodButton"
+    ).disabled = true;
+
+}
+
+
+/* ==================================================
+   顯示統計
+================================================== */
+
+function showResult() {
+
+    clearInterval(timer);
+
+
+    casePage.classList.remove("active");
+
+    resultPage.classList.add("active");
+
+
+    /*
+       注意：
+
+       目前這個版本是單一瀏覽器的 Demo，
+       所以一次只能記錄這台裝
