@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>幼兒3C使用鑑定事務所</title>
+
+
+<style>
+
+/* =====================================================
+   基本設定
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+
+    font-family:
+        "Arial",
+        "Noto Sans TC",
+        "Microsoft JhengHei",
+        sans-serif;
+
+    color: #493525;
+
+    background: #f5dc9a;
+
+}
+
+button {
+
+    font-family: inherit;
+
+    cursor: pointer;
+
+}
+
+
+/* =====================================================
+   共用畫面
+===================================================== */
+
+.screen {
+
+    min-height: 100vh;
+
+    display: none;
+
+    padding: 25px;
+
+}
+
+.screen.active {
+
+    display: flex;
+
+}
+
+
+/* =====================================================
+   起始畫面
+===================================================== */
+
+#homeScreen {
+
+    position: relative;
+
+    overflow: hidden;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background:
+
+        linear-gradient(
+            to bottom,
+            #72c8e8 0%,
+            #bdeaf5 63%,
+            #78b75b 63%,
+            #78b75b 100%
+        );
+
+}
+
+
+/* 太陽 */
+
+#homeScreen::before {
+
+    content: "☀️";
+
+    position: absolute;
+
+    top: 25px;
+
+    right: 7%;
+
+    font-size: 75px;
+
+}
+
+
+/* 雲 */
+
+#homeScreen::after {
+
+    content: "☁️        ☁️";
+
+    position: absolute;
+
+    top: 55px;
+
+    left: 6%;
+
+    font-size: 50px;
+
+    letter-spacing: 30px;
+
+}
+
+
+/* =====================================================
+   事務所外框
+===================================================== */
+
+.office {
+
+    position: relative;
+
+    z-index: 5;
+
+    width: min(920px, 95vw);
+
+    padding: 25px 30px 35px;
+
+    text-align: center;
+
+    background: #fff1bb;
+
+    border: 8px solid #70452e;
+
+    border-radius: 30px;
+
+    box-shadow:
+
+        0 18px 0 #513323,
+
+        0 28px 35px rgba(0,0,0,0.25);
+
+}
+
+
+/* =====================================================
+   標題
+===================================================== */
+
+.title {
+
+    margin: 0 0 5px;
+
+    font-size: clamp(30px, 5vw, 58px);
+
+    color: #e45c4c;
+
+    text-shadow:
+
+        3px 3px 0 white,
+
+        6px 6px 0 #75482f;
+
+}
+
+.subtitle {
+
+    font-size: clamp(15px, 2.5vw, 24px);
+
+    font-weight: bold;
+
+    color: #65452f;
+
+}
+
+
+/* =====================================================
+   建築物
+===================================================== */
+
+.building {
+
+    position: relative;
+
+    width: 82%;
+
+    height: 320px;
+
+    margin: 35px auto 15px;
+
+    background: #f5d477;
+
+    border: 8px solid #70452e;
+
+    border-radius: 18px 18px 5px 5px;
+
+    box-shadow:
+
+        inset 0 -25px rgba(120,75,40,0.12);
+
+}
+
+
+/* 屋頂 */
+
+.building::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+
+    top: -30px;
+
+    transform: translateX(-50%);
+
+    width: 108%;
+
+    height: 45px;
+
+    background: #e35d4d;
+
+    border: 7px solid #70452e;
+
+    border-radius: 20px 20px 5px 5px;
+
+}
+
+
+/* =====================================================
+   招牌
+===================================================== */
+
+.office-sign {
+
+    position: absolute;
+
+    z-index: 4;
+
+    left: 50%;
+
+    top: 22px;
+
+    transform: translateX(-50%);
+
+    width: 60%;
+
+    padding: 10px;
+
+    background: #fff8d7;
+
+    border: 6px solid #70452e;
+
+    border-radius: 15px;
+
+    font-size: clamp(15px, 2vw, 23px);
+
+    font-weight: bold;
+
+    color: #d85448;
+
+}
+
+
+/* =====================================================
+   窗戶
+===================================================== */
+
+.window {
+
+    position: absolute;
+
+    top: 100px;
+
+    width: 95px;
+
+    height: 80px;
+
+    background: #75cce7;
+
+    border: 7px solid #70452e;
+
+    border-radius: 10px;
+
+}
+
+.window.left {
+
+    left: 7%;
+
+}
+
+.window.right {
+
+    right: 7%;
+
+}
+
+
+/* 窗戶十字 */
+
+.window::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+
+    top: 0;
+
+    width: 6px;
+
+    height: 100%;
+
+    background: #70452e;
+
+    transform: translateX(-50%);
+
+}
+
+.window::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    top: 50%;
+
+    width: 100%;
+
+    height: 6px;
+
+    background: #70452e;
+
+    transform: translateY(-50%);
+
+}
+
+
+/* =====================================================
+   大門
+===================================================== */
+
+.door {
+
+    position: absolute;
+
+    z-index: 5;
+
+    left: 50%;
+
+    bottom: 0;
+
+    transform: translateX(-50%);
+
+    width: 155px;
+
+    height: 215px;
+
+    background: #75472f;
+
+    border: 8px solid #4c3022;
+
+    border-bottom: none;
+
+    border-radius: 75px 75px 0 0;
+
+}
+
+
+/* 門上的玻璃 */
+
+.door-window {
+
+    position: absolute;
+
+    top: 18px;
+
+    left: 25px;
+
+    width: 89px;
+
+    height: 70px;
+
+    background: #72cbe8;
+
+    border: 5px solid #4c3022;
+
+    border-radius: 12px;
+
+}
+
+
+/* 門把 */
+
+.door-handle {
+
+    position: absolute;
+
+    right: 16px;
+
+    top: 115px;
+
+    width: 14px;
+
+    height: 14px;
+
+    background: #f4c542;
+
+    border: 3px solid #4c3022;
+
+    border-radius: 50%;
+
+}
+
+
+/* =====================================================
+   機器人
+===================================================== */
+
+.robot {
+
+    position: absolute;
+
+    z-index: 10;
+
+    width: 120px;
+
+    height: 180px;
+
+    left: 50%;
+
+    bottom: -5px;
+
+    transform: translateX(-50%);
+
+    animation:
+
+        robotWalkOut 2.4s ease-out forwards,
+
+        robotIdle 1.5s 2.4s ease-in-out infinite alternate;
+
+}
+
+
+/* 機器人身體 */
+
+.robot-body {
+
+    position: absolute;
+
+    left: 20px;
+
+    bottom: 25px;
+
+    width: 80px;
+
+    height: 90px;
+
+    background: #e5a52c;
+
+    border: 6px solid #4f4a42;
+
+    border-radius: 24px 24px 15px 15px;
+
+    box-shadow:
+
+        inset 0 -10px rgba(0,0,0,0.12);
+
+}
+
+
+/* 機器人螢幕 */
+
+.robot-screen {
+
+    position: absolute;
+
+    left: 9px;
+
+    top: 12px;
+
+    width: 62px;
+
+    height: 44px;
+
+    background: #263238;
+
+    border: 4px solid #555;
+
+    border-radius: 9px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 8px;
+
+}
+
+
+/* 眼睛 */
+
+.eye {
+
+    width: 11px;
+
+    height: 18px;
+
+    background: #7de8ff;
+
+    border-radius: 50%;
+
+    animation: blink 3s infinite;
+
+}
+
+
+/* 輪子 */
+
+.robot-wheel {
+
+    position: absolute;
+
+    bottom: 0;
+
+    width: 42px;
+
+    height: 42px;
+
+    background: #333;
+
+    border: 6px solid #151515;
+
+    border-radius: 50%;
+
+}
+
+.robot-wheel.left {
+
+    left: 0;
+
+}
+
+.robot-wheel.right {
+
+    right: 0;
+
+}
+
+
+/* 手臂 */
+
+.robot-arm {
+
+    position: absolute;
+
+    top: 72px;
+
+    width: 38px;
+
+    height: 12px;
+
+    background: #777;
+
+    border-radius: 10px;
+
+}
+
+.robot-arm.left {
+
+    left: -20px;
+
+    transform: rotate(25deg);
+
+}
+
+.robot-arm.right {
+
+    right: -20px;
+
+    transform: rotate(-25deg);
+
+}
+
+
+/* =====================================================
+   對話框
+===================================================== */
+
+.speech {
+
+    position: relative;
+
+    z-index: 20;
+
+    max-width: 720px;
+
+    margin: 20px auto;
+
+    padding: 18px 25px;
+
+    background: white;
+
+    border: 5px solid #493525;
+
+    border-radius: 25px;
+
+    font-size: clamp(17px, 2.5vw, 24px);
+
+    font-weight: bold;
+
+    box-shadow:
+
+        5px 6px 0 rgba(0,0,0,0.2);
+
+    animation:
+
+        speechAppear 0.8s 2.1s both;
+
+}
+
+
+/* =====================================================
+   開始按鈕
+===================================================== */
+
+.start-btn {
+
+    position: relative;
+
+    z-index: 30;
+
+    border: none;
+
+    padding: 17px 45px;
+
+    background: #ed6857;
+
+    color: white;
+
+    font-size: clamp(20px, 3vw, 27px);
+
+    font-weight: bold;
+
+    border-radius: 50px;
+
+    box-shadow: 0 7px 0 #a83d32;
+
+    transition: transform 0.15s, box-shadow 0.15s;
+
+}
+
+.start-btn:hover {
+
+    transform: translateY(3px);
+
+    box-shadow: 0 4px 0 #a83d32;
+
+}
+
+.start-btn:active {
+
+    transform: translateY(6px);
+
+    box-shadow: 0 1px 0 #a83d32;
+
+}
+
+
+/* =====================================================
+   案件畫面
+===================================================== */
+
+#caseScreen {
+
+    flex-direction: column;
+
+    align-items: center;
+
+    background:
+
+        linear-gradient(
+            #9bd7f0 0 18%,
+            #d9c091 18% 100%
+        );
+
+}
+
+
+/* 上方 */
+
+.office-top {
+
+    width: 100%;
+
+    max-width: 1100px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+
+}
+
+.office-name {
+
+    font-size: clamp(20px, 3vw, 34px);
+
+    font-weight: bold;
+
+}
+
+
+/* =====================================================
+   倒數計時器
+===================================================== */
+
+.timer {
+
+    width: 95px;
+
+    height: 95px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background: white;
+
+    border: 6px solid #493525;
+
+    border-radius: 50%;
+
+    font-size: 32px;
+
+    font-weight: bold;
+
+}
+
+
+/* =====================================================
+   個案卡片
+===================================================== */
+
+.case-card {
+
+    width: min(1000px, 95vw);
+
+    padding: clamp(20px, 4vw, 45px);
+
+    background: #fff9df;
+
+    border: 8px solid #815536;
+
+    border-radius: 30px;
+
+    box-shadow: 0 12px 0 #573a29;
+
+}
+
+.case-number {
+
+    font-size: 22px;
+
+    color: #c76b45;
+
+    font-weight: bold;
+
+}
+
+.case-title {
+
+    font-size: clamp(25px, 4vw, 42px);
+
+    margin: 10px 0 25px;
+
+}
+
+.case-info {
+
+    padding: 25px;
+
+    background: white;
+
+    border-radius: 20px;
+
+    border: 3px dashed #d49a50;
+
+    font-size: clamp(20px, 3vw, 30px);
+
+    line-height: 1.7;
+
+}
+
+
+/* =====================================================
+   選項
+===================================================== */
+
+.vote-question {
+
+    margin: 30px 0 15px;
+
+    text-align: center;
+
+    font-size: 25px;
+
+    font-weight: bold;
+
+}
+
+.options {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 18px;
