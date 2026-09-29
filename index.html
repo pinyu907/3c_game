@@ -1,694 +1,119 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>幼兒3C鑑定事務所</title>
 
-<meta charset="UTF-8">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, "Microsoft JhengHei", sans-serif;
+      text-align: center;
+      background: #f5e6b8;
+    }
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    .page {
+      display: none;
+      min-height: 100vh;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
 
-<title>幼兒3C鑑定事務所</title>
-
-<style>
-
-/* ===== 基本設定 ===== */
-
-body {
-    margin: 0;
-    font-family: Arial, "Microsoft JhengHei", sans-serif;
-    background: #f5e6b8;
-    color: #333;
-}
-
-.page {
-    display: none;
-    min-height: 100vh;
-    padding: 30px;
-    box-sizing: border-box;
-    text-align: center;
-}
-
-.page.active {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-
-/* ===== 歡迎畫面 ===== */
-
-#welcome {
-    background: #8ed4ed;
-}
-
-h1 {
-    font-size: 45px;
-    color: #e85d4a;
-}
-
-.welcome-text {
-    font-size: 28px;
-    margin: 30px;
-}
-
-
-/* ===== 按鈕 ===== */
-
-button {
-    border: none;
-    border-radius: 15px;
-    padding: 18px 35px;
-    margin: 10px;
-    font-size: 24px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.start-button {
-    background: #e85d4a;
-    color: white;
-}
-
-.start-button:hover {
-    background: #d94b3b;
-}
-
-
-/* ===== 個案畫面 ===== */
-
-#casePage {
-    background: #f5e6b8;
-}
-
-.case-box {
-    width: min(900px, 90%);
-    background: white;
-    padding: 35px;
-    border-radius: 25px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-}
-
-.case-number {
-    font-size: 22px;
-    color: #888;
-}
-
-.case-info {
-    font-size: 28px;
-    line-height: 1.7;
-    margin: 30px 0;
-}
-
-
-/* ===== 倒數 ===== */
-
-.timer {
-    font-size: 40px;
-    font-weight: bold;
-    color: #e85d4a;
-    margin: 20px;
-}
-
-
-/* ===== 答案按鈕 ===== */
-
-.answers {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.answer {
-    width: 200px;
-    color: white;
-}
-
-.red {
-    background: #e95757;
-}
-
-.yellow {
-    background: #e8c84b;
-    color: #333;
-}
-
-.green {
-    background: #59b96b;
-}
-
-
-/* ===== 統計圖 ===== */
-
-#resultPage {
-    background: #f5e6b8;
-}
-
-.result-box {
-    width: min(800px, 90%);
-    background: white;
-    padding: 30px;
-    border-radius: 25px;
-}
-
-.result-row {
-    margin: 25px 0;
-    text-align: left;
-}
-
-.result-label {
-    font-size: 22px;
-    font-weight: bold;
-}
-
-.bar-background {
-    width: 100%;
-    height: 40px;
-    background: #ddd;
-    border-radius: 20px;
-    overflow: hidden;
-}
-
-.bar {
-    height: 100%;
-    width: 0%;
-    transition: width 0.5s;
-}
-
-.red-bar {
-    background: #e95757;
-}
-
-.yellow-bar {
-    background: #e8c84b;
-}
-
-.green-bar {
-    background: #59b96b;
-}
-
-
-/* ===== 手機版 ===== */
-
-@media (max-width: 600px) {
+    .show {
+      display: flex;
+    }
 
     h1 {
-        font-size: 32px;
+      font-size: 40px;
     }
 
-    .welcome-text {
-        font-size: 22px;
+    button {
+      padding: 20px 40px;
+      font-size: 25px;
+      border: none;
+      border-radius: 15px;
+      background: #e85d4a;
+      color: white;
+      cursor: pointer;
     }
 
-    .case-info {
-        font-size: 21px;
+    button:active {
+      transform: scale(0.95);
     }
 
-    .timer {
-        font-size: 32px;
+    #casePage {
+      background: #f5e6b8;
     }
-
-    .answer {
-        width: 90%;
-    }
-
-}
-
-</style>
-
+  </style>
 </head>
-
 
 <body>
 
+  <!-- 第一頁 -->
+  <div id="welcome" class="page show">
+    <h1>歡迎來到幼兒3C鑑定事務所</h1>
 
-<!-- ==================================================
-     歡迎畫面
-================================================== -->
+    <p>準備好開始今天的鑑定工作了嗎？</p>
 
-<div id="welcome" class="page active">
+    <button id="startButton">
+      🔨 開始上工
+    </button>
+  </div>
 
-    <h1>
-        歡迎來到幼兒3C鑑定事務所
-    </h1>
 
-    <div class="welcome-text">
-        👋 歡迎入職本事務所！
-        <br><br>
-        準備好開始今天的鑑定工作了嗎？
-    </div>
+  <!-- 第二頁 -->
+  <div id="casePage" class="page">
 
-    <button
-        id="startButton"
-        class="start-button"
-    >
-        🔨 開始上工
+    <h1>📋 個案一</h1>
+
+    <p>
+      👶 林家豪，5歲
+    </p>
+
+    <p>
+      晚餐後獎勵使用平板1小時
+      <br>
+      看 YouTube 短片
+      <br>
+      無大人陪同
+    </p>
+
+    <button id="backButton">
+      ← 回到首頁
     </button>
 
-</div>
+  </div>
 
 
+  <script>
 
-<!-- ==================================================
-     個案畫面
-================================================== -->
+    const startButton = document.getElementById("startButton");
 
-<div id="casePage" class="page">
+    const welcome = document.getElementById("welcome");
 
-    <div class="case-box">
+    const casePage = document.getElementById("casePage");
 
-        <div
-            id="caseNumber"
-            class="case-number"
-        >
-            個案一
-        </div>
 
+    startButton.addEventListener("click", function() {
 
-        <h2>
-            📋 個案資訊
-        </h2>
+      welcome.classList.remove("show");
 
+      casePage.classList.add("show");
 
-        <div
-            id="caseInfo"
-            class="case-info"
-        >
-        </div>
+    });
 
 
-        <div
-            id="timer"
-            class="timer"
-        >
-            30
-        </div>
+    document.getElementById("backButton").addEventListener("click", function() {
 
+      casePage.classList.remove("show");
 
-        <div>
-            請選擇你認為最適合的答案：
-        </div>
+      welcome.classList.add("show");
 
+    });
 
-        <div class="answers">
+  </script>
 
-            <button
-                id="tooMuchButton"
-                class="answer red"
-            >
-                🔴 太多了
-            </button>
-
-
-            <button
-                id="okayButton"
-                class="answer yellow"
-            >
-                🟡 還可以
-            </button>
-
-
-            <button
-                id="goodButton"
-                class="answer green"
-            >
-                🟢 完全喔虧
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-
-<!-- ==================================================
-     統計結果
-================================================== -->
-
-<div id="resultPage" class="page">
-
-    <div class="result-box">
-
-        <h1>
-            📊 本題回答統計
-        </h1>
-
-
-        <div class="result-row">
-
-            <div class="result-label">
-                🔴 太多了：
-                <span id="redCount">0</span> 人
-            </div>
-
-            <div class="bar-background">
-
-                <div
-                    id="redBar"
-                    class="bar red-bar"
-                ></div>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="result-row">
-
-            <div class="result-label">
-                🟡 還可以：
-                <span id="yellowCount">0</span> 人
-            </div>
-
-            <div class="bar-background">
-
-                <div
-                    id="yellowBar"
-                    class="bar yellow-bar"
-                ></div>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="result-row">
-
-            <div class="result-label">
-                🟢 完全喔虧：
-                <span id="greenCount">0</span> 人
-            </div>
-
-            <div class="bar-background">
-
-                <div
-                    id="greenBar"
-                    class="bar green-bar"
-                ></div>
-
-            </div>
-
-        </div>
-
-
-        <button
-            id="nextButton"
-            class="start-button"
-        >
-            ➡️ 下一單
-        </button>
-
-    </div>
-
-</div>
-
-
-
-<script>
-
-/* ==================================================
-   個案資料
-================================================== */
-
-const cases = [
-
-    {
-        time: 30,
-
-        info: `
-        👶🏻 <strong>林家豪，5歲</strong>
-        <br><br>
-        晚餐後獎勵使用平板 1 小時
-        <br>
-        看 YouTube 廢廢短片
-        <br>
-        無大人陪同
-        `
-    },
-
-
-    {
-        time: 40,
-
-        info: `
-        👶🏻 <strong>張美惠，3歲</strong>
-        <br><br>
-        每日使用 4 小時
-        <br>
-        1 小時看寶寶巴士（電視）
-        <br>
-        1.5 小時和父母一起看動畫電影（電視）
-        <br>
-        1.5 小時父母陪同使用英語學習 App（平板）
-        `
-    },
-
-
-    {
-        time: 30,
-
-        info: `
-        👶🏻 <strong>Jason Black，2歲</strong>
-        <br><br>
-        每日使用 5 小時
-        <br>
-        看哆啦A夢（電視）
-        <br>
-        無大人陪同
-        `
-    }
-
-];
-
-
-/* ==================================================
-   遊戲變數
-================================================== */
-
-let currentCase = 0;
-
-let timer;
-
-let timeLeft;
-
-
-/* ==================================================
-   每一題的票數
-================================================== */
-
-let redVotes = 0;
-
-let yellowVotes = 0;
-
-let greenVotes = 0;
-
-
-/* ==================================================
-   取得畫面
-================================================== */
-
-const welcome =
-    document.getElementById("welcome");
-
-const casePage =
-    document.getElementById("casePage");
-
-const resultPage =
-    document.getElementById("resultPage");
-
-
-/* ==================================================
-   開始上工
-================================================== */
-
-document
-    .getElementById("startButton")
-    .addEventListener(
-        "click",
-        startGame
-    );
-
-
-function startGame() {
-
-    welcome.classList.remove("active");
-
-    casePage.classList.add("active");
-
-    showCase();
-
-}
-
-
-/* ==================================================
-   顯示個案
-================================================== */
-
-function showCase() {
-
-    clearInterval(timer);
-
-
-    const current =
-        cases[currentCase];
-
-
-    document.getElementById(
-        "caseNumber"
-    ).textContent =
-        "個案 " + (currentCase + 1);
-
-
-    document.getElementById(
-        "caseInfo"
-    ).innerHTML =
-        current.info;
-
-
-    timeLeft =
-        current.time;
-
-
-    document.getElementById(
-        "timer"
-    ).textContent =
-        timeLeft;
-
-
-    /* 每一題重新計算票數 */
-
-    redVotes = 0;
-
-    yellowVotes = 0;
-
-    greenVotes = 0;
-
-
-    /* 開始倒數 */
-
-    timer = setInterval(
-
-        function() {
-
-            timeLeft--;
-
-            document.getElementById(
-                "timer"
-            ).textContent =
-                timeLeft;
-
-
-            if (timeLeft <= 0) {
-
-                clearInterval(timer);
-
-                showResult();
-
-            }
-
-        },
-
-        1000
-
-    );
-
-}
-
-
-/* ==================================================
-   投票
-================================================== */
-
-document
-    .getElementById("tooMuchButton")
-    .addEventListener(
-        "click",
-        function() {
-
-            redVotes++;
-
-            disableButtons();
-
-            showResult();
-
-        }
-    );
-
-
-document
-    .getElementById("okayButton")
-    .addEventListener(
-        "click",
-        function() {
-
-            yellowVotes++;
-
-            disableButtons();
-
-            showResult();
-
-        }
-    );
-
-
-document
-    .getElementById("goodButton")
-    .addEventListener(
-        "click",
-        function() {
-
-            greenVotes++;
-
-            disableButtons();
-
-            showResult();
-
-        }
-    );
-
-
-/* ==================================================
-   禁止重複投票
-================================================== */
-
-function disableButtons() {
-
-    document.getElementById(
-        "tooMuchButton"
-    ).disabled = true;
-
-    document.getElementById(
-        "okayButton"
-    ).disabled = true;
-
-    document.getElementById(
-        "goodButton"
-    ).disabled = true;
-
-}
-
-
-/* ==================================================
-   顯示統計
-================================================== */
-
-function showResult() {
-
-    clearInterval(timer);
-
-
-    casePage.classList.remove("active");
-
-    resultPage.classList.add("active");
-
-
-    /*
-       注意：
-
-       目前這個版本是單一瀏覽器的 Demo，
-       所以一次只能記錄這台裝
+</body>
+</html>
